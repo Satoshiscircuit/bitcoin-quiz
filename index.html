@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitcoin Quiz Challenge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f0f0f0;
+      color: #333;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #f7931a;
+    }
+    .quiz {
+      display: none;
+      margin: 20px 0;
+    }
+    .quiz.active {
+      display: block;
+    }
+    .question {
+      margin: 15px 0;
+      font-size: 1.2em;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .option {
+      padding: 10px;
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: left;
+    }
+    .option:hover {
+      background: #e0e0e0;
+    }
+    .option.selected {
+      background: #f7931a;
+      color: white;
+    }
+    button {
+      padding: 10px 20px;
+      background: #f7931a;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    button:hover {
+      background: #e68a00;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+    #explanations {
+      text-align: left;
+      margin-top: 20px;
+      padding: 10px;
+      background: #f9f9f9;
+      border-radius: 5px;
+      display: none;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 10px;
+      }
+      .option {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Bitcoin Quiz Challenge</h1>
+    <p>Test your Bitcoin knowledge! Choose a quiz below:</p>
+    <button onclick="startQuiz('beginner')">Beginner Quiz</button>
+    <button onclick="startQuiz('intermediate')">Intermediate Quiz</button>
+    <button onclick="startQuiz('advanced')">Advanced Quiz</button>
+
+    <div id="beginner" class="quiz">
+      <div class="question" data-answer="b" data-explanation="Satoshi Nakamoto – This pseudonymous person (or group) released the Bitcoin whitepaper and software in 2008-2009.">
+        Who is credited with creating Bitcoin?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) Elon Musk</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) Satoshi Nakamoto</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) Vitalik Buterin</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) Mark Zuckerberg</div>
+        </div>
+      </div>
+      <div class="question" data-answer="a" data-explanation="2008 – The paper titled 'Bitcoin: A Peer-to-Peer Electronic Cash System' was published on October 31, 2008.">
+        In what year was the Bitcoin whitepaper published?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) 2008</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) 2010</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) 2005</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) 2013</div>
+        </div>
+      </div>
+      <div class="question" data-answer="b" data-explanation="21 million – Bitcoin's protocol caps the total supply to prevent inflation.">
+        What is the maximum supply of Bitcoin that will ever exist?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) 100 million</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) 21 million</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) Unlimited</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) 1 billion</div>
+        </div>
+      </div>
+      <div class="question" data-answer="a" data-explanation="Digital gold – Due to its scarcity and store-of-value properties.">
+        What is Bitcoin often referred to as?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) Digital gold</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) Virtual silver</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) Crypto stock</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) Online cash</div>
+        </div>
+      </div>
+      <div class="question" data-answer="b" data-explanation="The Halving – The most recent one occurred in April 2024, reducing the block reward to 3.125 BTC.">
+        What event halves the reward for mining new Bitcoin blocks approximately every four years?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) The Fork</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) The Halving</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) The Merge</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) The Upgrade</div>
+        </div>
+      </div>
+      <button onclick="submitQuiz('beginner')">Submit Beginner Quiz</button>
+    </div>
+
+    <div id="intermediate" class="quiz">
+      <div class="question" data-answer="a" data-explanation="Blockchain – A decentralized ledger that records all transactions transparently and immutably.">
+        What technology underpins Bitcoin to secure transactions?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) Blockchain</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) Cloud computing</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) AI algorithms</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) Quantum encryption</div>
+        </div>
+      </div>
+      <div class="question" data-answer="b" data-explanation="Software or hardware for storing private keys – Wallets don't hold Bitcoin itself but the keys to access it on the blockchain.">
+        What is a 'Bitcoin wallet'?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) A physical coin holder</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) Software or hardware for storing private keys</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) An online bank account</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) A mining device</div>
+        </div>
+      </div>
+      <div class="question" data-answer="b" data-explanation="Validating transactions and adding them to the blockchain using computational power – Miners solve complex puzzles to earn rewards.">
+        What does 'mining' in Bitcoin refer to?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) Digging for digital coins</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) Validating transactions and adding them to the blockchain using computational power</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) Trading Bitcoin for profit</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) Creating new wallets</div>
+        </div>
+      </div>
+      <div class="question" data-answer="b" data-explanation="Purchasing two pizzas – In 2010, Laszlo Hanyecz paid 10,000 BTC for two Papa John's pizzas, now worth millions.">
+        What was the first real-world transaction using Bitcoin?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) Buying a car</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) Purchasing two pizzas</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) Paying for coffee</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) Donating to charity</div>
+        </div>
+      </div>
+      <div class="question" data-answer="b" data-explanation="A backward-incompatible protocol change creating a new chain – Examples include Bitcoin Cash forking from Bitcoin in 2017.">
+        What is a 'hard fork' in Bitcoin?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) A temporary network outage</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) A backward-incompatible protocol change creating a new chain</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) A security update</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) A mining reward increase</div>
+        </div>
+      </div>
+      <button onclick="submitQuiz('intermediate')">Submit Intermediate Quiz</button>
+    </div>
+
+    <div id="advanced" class="quiz">
+      <div class="question" data-answer="b" data-explanation="Proof-of-Work – Miners compete to solve cryptographic puzzles, securing the network through energy expenditure.">
+        What consensus mechanism does Bitcoin use?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) Proof-of-Stake</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) Proof-of-Work</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) Delegated Proof-of-Stake</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) Proof-of-Authority</div>
+        </div>
+      </div>
+      <div class="question" data-answer="b" data-explanation="Approval of spot Bitcoin ETFs – In January 2024, the SEC approved several, leading to massive institutional inflows by 2025.">
+        As of 2025, what major regulatory milestone has Bitcoin achieved in the US?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) Banned nationwide</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) Approval of spot Bitcoin ETFs</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) Classified as a currency by the IRS</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) Mandated for all transactions</div>
+        </div>
+      </div>
+      <div class="question" data-answer="b" data-explanation="A layer-2 scaling solution for faster, cheaper transactions – It enables off-chain payments while settling on the main blockchain.">
+        What is the Lightning Network?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) A Bitcoin mining pool</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) A layer-2 scaling solution for faster, cheaper transactions</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) A Bitcoin fork</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) An exchange platform</div>
+        </div>
+      </div>
+      <div class="question" data-answer="b" data-explanation="6 – This provides high confidence against double-spend attacks for most purposes.">
+        How many confirmations are typically recommended for a Bitcoin transaction to be considered secure?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) 1</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) 6</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) 10</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) 20</div>
+        </div>
+      </div>
+      <div class="question" data-answer="b" data-explanation="10 minutes – Designed to balance security and decentralization.">
+        What is the approximate block time for Bitcoin?<br>
+        <div class="options">
+          <div class="option" onclick="selectOption(this, 'a')">a) 1 minute</div>
+          <div class="option" onclick="selectOption(this, 'b')">b) 10 minutes</div>
+          <div class="option" onclick="selectOption(this, 'c')">c) 30 seconds</div>
+          <div class="option" onclick="selectOption(this, 'd')">d) 1 hour</div>
+        </div>
+      </div>
+      <button onclick="submitQuiz('advanced')">Submit Advanced Quiz</button>
+    </div>
+
+    <div id="result"></div>
+    <div id="explanations"></div>
+  </div>
+
+  <script>
+    let currentQuiz = null;
+    let score = 0;
+    let selectedAnswers = {};
+
+    function startQuiz(quizId) {
+      document.querySelectorAll('.quiz').forEach(quiz => quiz.classList.remove('active'));
+      document.getElementById(quizId).classList.add('active');
+      currentQuiz = quizId;
+      score = 0;
+      selectedAnswers = {};
+      document.getElementById('result').innerHTML = '';
+      document.getElementById('explanations').style.display = 'none';
+      document.querySelectorAll('.option').forEach(option => option.classList.remove('selected'));
+    }
+
+    function selectOption(element, answer) {
+      const questionDiv = element.parentElement.parentElement;
+      const questionIndex = Array.from(questionDiv.parentElement.children).indexOf(questionDiv);
+      selectedAnswers[questionIndex] = answer;
+      element.parentElement.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+      element.classList.add('selected');
+    }
+
+    function submitQuiz(quizId) {
+      score = 0;
+      const questions = document.querySelectorAll(`#${quizId} .question`);
+      let explanations = '<h3>Explanations:</h3>';
+      questions.forEach((question, index) => {
+        const correctAnswer = question.dataset.answer;
+        const userAnswer = selectedAnswers[index];
+        if (userAnswer === correctAnswer) {
+          score++;
+        }
+        explanations += `<p><strong>Question ${index + 1}:</strong> ${question.dataset.explanation}</p>`;
+      });
+      document.getElementById('result').innerHTML = `You scored ${score} out of ${questions.length}!`;
+      document.getElementById('explanations').innerHTML = explanations;
+      document.getElementById('explanations').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
